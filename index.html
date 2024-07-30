@@ -164,7 +164,7 @@
             $("#frm_nuevo_cliente").on('submit', function(event) {
                 event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
                 $.ajax({
-                    url: 'http://44.208.34.38:4000/api/customers',
+                    url: 'http://54.161.76.236:4000/api/customers',
                     type: 'POST',
                     dataType: 'json',
                     contentType: 'application/json', // Asegúrate de enviar JSON
@@ -210,7 +210,7 @@
             // Función para cargar los clientes desde la API y actualizar la tabla
             function cargarClientes() {
                 $.ajax({
-                    url: 'http://44.208.34.38:4000/api/customers',
+                    url: 'http://54.161.76.236:4000/api/customers',
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
