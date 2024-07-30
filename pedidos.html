@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumo de una API Pedido</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script> <!-- DataTables -->
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet"> <!-- DataTables CSS -->
+    <style>
+        body {
+            background-color: #ed9950;
+            padding-top: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            max-width: 800px;
+        }
+        h1 {
+            color: #0a0a0a;
+            font-family: 'Times New Roman', serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .modal-content {
+            border-radius: 10px;
+        }
+        .card-custom {
+            background-color: #e6d777; /* Color de fondo para la tarjeta */
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            margin: 5px;
+        }
+        .table-custom {
+            background-color: #5cb85c; /* Color verde para la tabla */
+            border-radius: 10px; /* Borde redondeado */
+            font-size: 0.9rem; /* Tamaño de fuente reducido */
+        }
+        .table-custom th, .table-custom td {
+            border: none; /* Sin bordes en las celdas */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="portada.html">API Cliente</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="productos.html">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pedidos.html">Pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="empleado.html">Empleado</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="factura.html">Factura</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="card card-custom">
+                    <div class="card-title text-center">
+                        <h3><b>Consumo de una API Pedido</b></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Registrar nuevo pedido
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frm_nuevo_pedido">
+                            <label for="supplier_name" class="form-label"><b>Nombre:</b></label>
+                            <input type="text" name="supplier_name" id="supplier_name" class="form-control" required>
+                            <br>
+                            <label for="contact_email" class="form-label"><b>Email:</b></label>
+                            <input type="email" name="contact_email" id="contact_email" class="form-control" required>
+                            <br>
+                            <label for="contact_phone" class="form-label"><b>Teléfono:</b></label>
+                            <input type="text" name="contact_phone" id="contact_phone" class="form-control" required>
+                            <br>
+                            <label for="order_date" class="form-label"><b>Día de orden:</b></label>
+                            <input type="date" name="order_date" id="order_date" class="form-control" required>
+                            <br>
+                            <label for="product_name" class="form-label"><b>Nombre de Producto:</b></label>
+                            <input type="text" name="product_name" id="product_name" class="form-control" required>
+                            <br>
+                            <label for="quantity" class="form-label"><b>Cantidad:</b></label>
+                            <input type="number" name="quantity" id="quantity" class="form-control" required>
+                            <br>
+                            <label for="price" class="form-label"><b>Precio:</b></label>
+                            <input type="number" name="price" id="price" class="form-control" required>
+                            <hr>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover table-custom" id="tbl-pedidos">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Día de Orden</th>
+                        <th>Nombre de Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody id="pedidos-tbody">
+                    <tr>
+                        <td colspan="8">Cargando datos...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Manejo del formulario de nuevo pedido
+            $("#frm_nuevo_pedido").on('submit', function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: 'http://44.208.34.38:4000/api/pedidos',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        supplier_name: $("#supplier_name").val(),
+                        contact_email: $("#contact_email").val(),
+                        contact_phone: $("#contact_phone").val(),
+                        order_date: $("#order_date").val(),
+                        product_name: $("#product_name").val(),
+                        quantity: parseInt($("#quantity").val()),
+                        price: parseFloat($("#price").val())
+                    }),
+                    success: function(data) {
+                        console.log(data);
+                        Swal.fire({
+                            title: data.estado ? "CONFIRMACIÓN" : "Dato Guardado",
+                            text: data.mensaje,
+                            icon: 'success'
+                        }).then(() => {
+                            $("#exampleModal").modal('hide');
+                            $("#frm_nuevo_pedido")[0].reset();
+                            cargarPedidos();
+                        });
+                    },
+                    error: function(xhr) {
+                        console.error("Error en la solicitud:", xhr);
+                        Swal.fire({
+                            title: "Error",
+                            text: "Hubo un problema al guardar el pedido.",
+                            icon: 'error'
+                        });
+                    }
+                });
+            });
+
+            // Función para cargar los pedidos desde la API
+            function cargarPedidos() {
+                $.ajax({
+                    url: 'http://44.208.34.38:4000/api/pedidos',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if (Array.isArray(data)) {
+                            let pedidosHTML = '';
+                            data.forEach(pedido => {
+                                pedidosHTML += 
+                                    `<tr>
+                                        <td>${pedido.id}</td>
+                                        <td>${pedido.supplier_name}</td>
+                                        <td>${pedido.contact_email}</td>
+                                        <td>${pedido.contact_phone}</td>
+                                        <td>${pedido.order_date}</td>
+                                        <td>${pedido.product_name}</td>
+                                        <td>${pedido.quantity}</td>
+                                        <td>${pedido.price}</td>
+                                    </tr>`;
+                            });
+                            $('#pedidos-tbody').html(pedidosHTML);
+                        } else {
+                            $('#pedidos-tbody').html('<tr><td colspan="8">No se encontraron datos</td></tr>');
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error("Error en la solicitud:", xhr);
+                        $('#pedidos-tbody').html('<tr><td colspan="8">Error al cargar los datos</td></tr>');
+                    }
+                });
+            }
+
+            cargarPedidos(); // Cargar pedidos al inicio
+
+            // Evento click para actualizar la tabla manualmente
+            $('#btnActualizarTabla').click(function() {
+                cargarPedidos();
+            });
+        });
+    </script>
+</body>
+</html>
+
+
